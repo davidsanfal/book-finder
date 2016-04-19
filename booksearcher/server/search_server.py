@@ -1,13 +1,14 @@
-from flask import Flask, request
+from flask import Flask, request, redirect
 from flask.templating import render_template
 from flask_wtf.form import Form
 from wtforms.fields.core import StringField, RadioField
-from flask.helpers import flash
+from flask.helpers import flash, url_for
 from flask_bootstrap import Bootstrap
 from wtforms.fields.simple import SubmitField
 from booksearcher.server.book_service import BookService
 from wtforms import validators
 from booksearcher.errors import BookSearcherException
+import json
 
 
 app = Flask(__name__)
@@ -34,14 +35,16 @@ def searcher():
         try:
             books_info = book_searcher.serch(form.query.data,
                                              form.query_type.data)
-            print '*' * 20
-            for book in books_info:
-                print book.title
-                print '*' * 20
+            return redirect(url_for('book_list', books_info=books_info))
         except BookSearcherException as e:
             flash(e.message, 'danger')
-        
     return render_template('search.html', form=form)
+
+@app.route('/books')
+def book_list():
+    books_info = request.args['books_info']
+    books = json.loads(books_info)
+    return render_template('book_list.html', books=books)
 
 if __name__ == '__main__':
     app.run(debug=True)

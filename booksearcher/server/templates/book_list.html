@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+	<div class="list-group">
+		{% for book in books %}
+		<a href="/" class="list-group-item">
+			<div class="row">
+				<div class="col-md-9">
+					<h4 class="list-group-item-heading"> {{ book.title }} </h4>
+		    		<p class="list-group-item-text"><strong>ISBN</strong> {{ book.isbn10 }} </p>
+		    		<p class="list-group-item-text"><strong>Author</strong> {{ book.author }} </p>
+		    		<p class="list-group-item-text"><strong>Publisher</strong> {{ book.publisher }} </p>
+				</div>
+				<div class="col-md-3">
+					<img src="{{ book.cover_url }}" class="img-responsive" alt="Book">
+				</div>
+			</div>
+		</a>
+		{% endfor %}
+	
+	</div>
+
+{% endblock %}
