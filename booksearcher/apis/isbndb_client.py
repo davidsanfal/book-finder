@@ -2,6 +2,7 @@ import requests
 import os
 import json
 import re
+from booksearcher.errors import ISBNdbException, ISBNdbServerException
 
 
 def urlify(s):
@@ -24,6 +25,10 @@ INDEX_PARAMETERS = ['author_id',  # (ISBNdb's internal author_id)
                     'full',  # (searches across all indexes)
                     ]
 
+SIMPLE_SEARCH = ['title',
+                 'isbn',
+                 ]
+
 
 class ISBNdbClient(object):
 
@@ -35,8 +40,11 @@ class ISBNdbClient(object):
         url = self.base_url + request_info  # '/book/084930315X'
         response = requests.get(url=url)
         if response.status_code != 200:
-            raise Exception('ISBN ERROR')
+            raise ISBNdbServerException('ISBNdb response error')
         data = json.loads(response.content)
+        error = data.get('error')
+        if error:
+            raise ISBNdbException(error)
         return data
 
     def get_book(self, info):
@@ -46,11 +54,18 @@ class ISBNdbClient(object):
     def get_books(self, info, index=None):
         info = urlify(info)
         request_url = '/books/?q=%s' % info
-        if index and index in INDEX_PARAMETERS:
-            request_url = request_url + '&i=%s' % index
-        print request_url
+        if index:
+            if index in INDEX_PARAMETERS:
+                request_url = request_url + '&i=%s' % index
+            else:
+                raise ISBNdbException()
         return self.request(request_url)
-
-# client = ISBNdbClient()
-# print client.get_book('principles of solid mechanics')
-# print client.get_books('john', 'author_name')
+    
+    def search(self, info, query_type):
+        if query_type in SIMPLE_SEARCH:
+            return self.get_book(info)
+        else:
+            try:
+                return self.get_books(info, query_type)
+            except ISBNdbException:
+                raise ISBNdbException

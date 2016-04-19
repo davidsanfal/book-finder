@@ -2,5 +2,19 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
-{{ wtf.quick_form(form) }}
+
+<form class="form" method="POST" action="/">
+	{{ form.hidden_tag() }}
+	{{ wtf.form_errors(form, hiddens="only") }}
+    {{ wtf.form_field(form.query) }}
+    <div>
+	    {% for subfield in form.query_type %}
+		<tr>
+			    <td>{{ subfield }}</td>
+			    <td>{{ subfield.label }}</td>
+		</tr>
+		{% endfor %}
+	</div>
+	{{ wtf.form_field(form.submit) }}
+</form>
 {% endblock %}
