@@ -1,9 +1,9 @@
 import requests
-import os
 import json
 import re
 from bookfinder.errors import ISBNdbException, ISBNdbServerException
 from requests.exceptions import ConnectionError, Timeout, RequestException
+from bookfinder.environment import ISBNDB_API_KEY
 
 
 def urlify(s):
@@ -35,7 +35,7 @@ INDEX_ALL_BOOKS = 'all'
 class ISBNdbClient(object):
 
     def __init__(self):
-        self.api_key = os.environ.get('ISBNDB_API_KEY')
+        self.api_key = ISBNDB_API_KEY
         self.base_url = 'http://isbndb.com/api/v2/json/%s' % self.api_key
 
     def request(self, request_info):

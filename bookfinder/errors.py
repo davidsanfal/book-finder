@@ -9,11 +9,20 @@ class BookSearcherException(Exception):
     """
     pass
 
+
+class EnvironmentException(Exception):
+    """
+         Environment exception
+    """
+    pass
+
+
 class ISBNdbException(BookSearcherException):
     """
          ISBNdbException exception
     """
     pass
+
 
 class ISBNdbServerException(BookSearcherException):
     """

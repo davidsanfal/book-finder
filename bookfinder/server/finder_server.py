@@ -13,7 +13,7 @@ import json
 
 app = Flask(__name__)
 Bootstrap(app)
-app.config.from_object('config')
+app.config.from_object('bookfinder.server.config')
 
 
 class FinderForm(Form):
@@ -96,7 +96,11 @@ def book(isbn):
     book_info = request.args.get('book_info')
     if not book_info:
         book_searcher = BookService()
-        book, _ = book_searcher.serch(isbn, 'isbn')
+        try:
+            book, _ = book_searcher.serch(isbn, 'isbn')
+        except BookSearcherException as e:
+            flash(e.message, 'danger')
+            return redirect(url_for('finder'))
         book = book[0]
     else:
         book = json.loads(book_info)
