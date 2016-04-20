@@ -3,6 +3,7 @@ import os
 import json
 import re
 from bookfinder.errors import ISBNdbException, ISBNdbServerException
+from requests.exceptions import ConnectionError, Timeout, RequestException
 
 
 def urlify(s):
@@ -25,8 +26,10 @@ INDEX_PARAMETERS = ['author_id',  # (ISBNdb's internal author_id)
                     'full',  # (searches across all indexes)
                     ]
 
-TITLE_SEARCH = 'title'
-ISBN_SEARCH = 'isbn'
+INDEX_SIMPLE_SEARCH = ['title',
+                       'isbn']
+
+INDEX_ALL_BOOKS = 'all'
 
 
 class ISBNdbClient(object):
@@ -37,7 +40,15 @@ class ISBNdbClient(object):
 
     def request(self, request_info):
         url = self.base_url + request_info  # '/book/084930315X'
-        response = requests.get(url=url)
+        print url
+        try:
+            response = requests.get(url=url)
+        except Timeout:
+            raise ISBNdbServerException('ISBNdb server timed out')
+        except ConnectionError:
+            raise ISBNdbServerException('Connection error')
+        except RequestException as e:
+            raise ISBNdbServerException('ISBNdb server error: %s' % e)
         if response.status_code != 200:
             raise ISBNdbServerException('ISBNdb response error')
         data = json.loads(response.content)
@@ -50,22 +61,19 @@ class ISBNdbClient(object):
         info = urlify(info)
         return self.request('/book/%s' % info)
 
-    def get_books(self, info, index=None):
+    def get_books(self, info, index=None, page=1):
         info = urlify(info)
-        request_url = '/books/?q=%s' % info
+        request_url = '/books?q=%s' % info
         if index:
             if index in INDEX_PARAMETERS:
                 request_url = request_url + '&i=%s' % index
             else:
-                raise ISBNdbException()
+                raise ISBNdbException('Invalid query index: %s' % index)
+        request_url = request_url + '&p=%i' % page
         return self.request(request_url)
 
-    def search(self, info, query_type):
-        if query_type == ISBN_SEARCH:
+    def search(self, info, query_type, page):
+        if query_type in INDEX_SIMPLE_SEARCH:
             return self.get_book(info)
-        elif query_type == TITLE_SEARCH:
-            try:
-                return self.get_book(info)
-            except ISBNdbException:
-                query_type = None
-        return self.get_books(info, query_type)
+        query_type = None if query_type == INDEX_ALL_BOOKS else query_type
+        return self.get_books(info, query_type, page)

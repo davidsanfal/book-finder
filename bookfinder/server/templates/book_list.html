@@ -21,5 +21,15 @@
 		{% endfor %}
 	
 	</div>
-
+	<div class="container text-center">
+		<ul class = " pagination pagination-lg">
+			<li><a href = "#">First</a></li>
+		   <li><a href = "#">&laquo;</a></li>
+		   {% for num_page in pages %}
+		   <li><a href = "{{ url_for('book_list', page=num_page, query=query) }}">{{ num_page }}</a></li>
+		   {% endfor %}
+		   <li><a href = "#">&raquo;</a></li>
+		   <li><a href = "#">Last</a></li>
+		</ul>
+	</div>
 {% endblock %}
