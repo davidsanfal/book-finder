@@ -6,8 +6,8 @@
 <div class="jumbotron">
 	<h1>Book Finder</h1>
 	<p class="lead">Get full information about all the books you want.</p>
-
-
+	<img class="img-responsive center-block" src="https://openclipart.org/image/300px/svg_to_png/151975/books-silhouette.png&disposition=attachment" alt="Books" title="Books by  Moini ( https://openclipart.org/user-detail/Moini )" />
+	<br>
 <form class="form" method="POST" action="/">
 	{{ form.hidden_tag() }}
 	{{ wtf.form_errors(form, hiddens="only") }}
@@ -20,6 +20,7 @@
 		</tr>
 		{% endfor %}
 	</div>
+	<br>
 	{{ wtf.form_field(form.submit) }}
 </form>
 </div>

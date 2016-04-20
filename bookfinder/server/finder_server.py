@@ -23,7 +23,8 @@ class FinderForm(Form):
                                      ('all', 'All books'),
                                      ('isbn', 'ISBN'),
                                      ('author_name', 'Author'),
-                                     ('publisher_name', 'Publisher')],
+                                     ('publisher_name', 'Publisher'),
+                                     ('book_summary', 'Topics')],
                             default='title'
                             )
     submit = SubmitField('Find book')
@@ -39,12 +40,13 @@ def finder():
                                                     form.query_type.data)
             if pages:
                 books_info = book_info_to_json(books_info)
+                query = json.dumps({'data': form.query.data,
+                                    'type': form.query_type.data,
+                                    'pages': pages})
                 return redirect(url_for('book_list',
                                         page=1,
                                         books_info=books_info,
-                                        query=json.dumps({'data': form.query.data,
-                                                          'type': form.query_type.data,
-                                                          'pages': pages})))
+                                        query=query))
             else:
                 book = books_info[0]
                 return redirect(url_for('book',
@@ -56,13 +58,13 @@ def finder():
 
 
 def page_counter(current_page, max_page):
-    if max_page < 6:
+    if max_page < 4:
         return range(1, max_page+1)
-    elif current_page > 3:
-        return range(current_page-1, current_page+1)
-    elif current_page > max_page-3:
-        return range(max_page-4, max_page+1)
-    return range(1, 6)
+    if current_page > 2:
+        return range(current_page-1, current_page+2)
+    if current_page > max_page-2:
+        return range(max_page-2, max_page+1)
+    return range(1, 4)
 
 
 @app.route('/books/<page>')
@@ -70,21 +72,21 @@ def book_list(page):
     query_json = request.args.get('query')
     if not query_json:
         abort(404)
-    print query_json
     query = json.loads(query_json)
     max_page = query['pages']
     books_info = request.args.get('books_info')
     if not books_info:
         book_searcher = BookService()
-        books_info, _ = book_searcher.serch(query['data'],
-                                            query['type'],
-                                            page)
+        books, _ = book_searcher.serch(query['data'],
+                                       query['type'],
+                                       page)
     else:
         books = json.loads(books_info)
     return render_template('book_list.html',
                            books=books,
                            query=query_json,
-                           current_page=page,
+                           current_page=int(page),
+                           max_page=max_page,
                            pages=page_counter(int(page), max_page))
 
 

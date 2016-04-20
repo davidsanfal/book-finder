@@ -40,7 +40,6 @@ class ISBNdbClient(object):
 
     def request(self, request_info):
         url = self.base_url + request_info  # '/book/084930315X'
-        print url
         try:
             response = requests.get(url=url)
         except Timeout:
@@ -69,7 +68,7 @@ class ISBNdbClient(object):
                 request_url = request_url + '&i=%s' % index
             else:
                 raise ISBNdbException('Invalid query index: %s' % index)
-        request_url = request_url + '&p=%i' % page
+        request_url = request_url + '&p=%s' % page
         return self.request(request_url)
 
     def search(self, info, query_type, page):

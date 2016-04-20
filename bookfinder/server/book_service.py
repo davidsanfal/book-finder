@@ -55,7 +55,8 @@ class BookService(object):
         except ISBNdbException as e:
             raise BookSearcherException(e.message)
         if not json_info['data']:
-            raise BookSearcherException('0 books')
+            error_message = 'Unable to locate any book with "%s"' % query
+            raise BookSearcherException(error_message)
         for data in json_info['data']:
             books_info.append(BookInfo(data))
         return books_info, json_info.get('page_count')
