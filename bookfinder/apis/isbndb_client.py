@@ -2,7 +2,7 @@ import requests
 import os
 import json
 import re
-from booksearcher.errors import ISBNdbException, ISBNdbServerException
+from bookfinder.errors import ISBNdbException, ISBNdbServerException
 
 
 def urlify(s):
@@ -25,9 +25,8 @@ INDEX_PARAMETERS = ['author_id',  # (ISBNdb's internal author_id)
                     'full',  # (searches across all indexes)
                     ]
 
-SIMPLE_SEARCH = ['title',
-                 'isbn',
-                 ]
+TITLE_SEARCH = 'title'
+ISBN_SEARCH = 'isbn'
 
 
 class ISBNdbClient(object):
@@ -60,12 +59,13 @@ class ISBNdbClient(object):
             else:
                 raise ISBNdbException()
         return self.request(request_url)
-    
+
     def search(self, info, query_type):
-        if query_type in SIMPLE_SEARCH:
+        if query_type == ISBN_SEARCH:
             return self.get_book(info)
-        else:
+        elif query_type == TITLE_SEARCH:
             try:
-                return self.get_books(info, query_type)
+                return self.get_book(info)
             except ISBNdbException:
-                raise ISBNdbException
+                query_type = None
+        return self.get_books(info, query_type)

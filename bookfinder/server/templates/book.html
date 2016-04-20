@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="container text-center separated">
+	<h2> {{ book.title }} </h2>
+</div>
+<div class="container separated">
+	<div class="row separated">
+		<div class="col-md-4">
+			<img src="{{ book.cover_large_url }}" class="img-responsive center-block" alt="Book cover">
+		</div>
+		<div class="col-md-8">
+			<p class="list-group-item-text"><strong>ISBN</strong> {{ book.isbn10 }} </p>
+			<p class="list-group-item-text"><strong>Author</strong> {{ book.author }} </p>
+			<p class="list-group-item-text"><strong>Publisher</strong> {{ book.publisher }} </p>
+			<p class="list-group-item-text"><strong>language</strong> {{ book.language }} </p>
+			<p class="list-group-item-text"><strong>summary</strong> {{ book.summary }} </p>
+		</div>
+	</div>
+</div>
+				
+{% endblock %}

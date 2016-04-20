@@ -5,7 +5,7 @@
 
 	<div class="list-group">
 		{% for book in books %}
-		<a href="/" class="list-group-item">
+		<a href="{{ url_for('book', isbn=book.isbn10, books_info=book) }}" class="list-group-item">
 			<div class="row">
 				<div class="col-md-9">
 					<h4 class="list-group-item-heading"> {{ book.title }} </h4>
@@ -14,7 +14,7 @@
 		    		<p class="list-group-item-text"><strong>Publisher</strong> {{ book.publisher }} </p>
 				</div>
 				<div class="col-md-3">
-					<img src="{{ book.cover_url }}" class="img-responsive" alt="Book">
+					<img src="{{ book.cover_url }}" class="img-responsive center-block" alt="Book cover">
 				</div>
 			</div>
 		</a>

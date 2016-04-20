@@ -4,9 +4,9 @@
 {% block content %}
 
 <div class="jumbotron">
-	<h1>Jumbotron heading</h1>
-	<p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-</div>
+	<h1>Book Finder</h1>
+	<p class="lead">Get full information about all the books you want.</p>
+
 
 <form class="form" method="POST" action="/">
 	{{ form.hidden_tag() }}
@@ -22,4 +22,5 @@
 	</div>
 	{{ wtf.form_field(form.submit) }}
 </form>
+</div>
 {% endblock %}

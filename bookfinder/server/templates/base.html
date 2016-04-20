@@ -1,7 +1,9 @@
 <html>
   <head>
+  	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/jumbotron-narrow.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/booksearcher.css') }}">
 
  	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -17,9 +19,14 @@
   </head>
   <body>
   	<div class="container">
-  		<div class="header clearfix">
-        <h3 class="text-muted">Book Searcher</h3>
-      </div>
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills pull-right">
+					<li role="presentation"><a href="/">Find a new book</a></li>
+				</ul>
+			</nav>
+			<h3 class="text-muted">Boock Finder</h3>
+		</div>
 		{% with messages = get_flashed_messages(with_categories=true) %}
 		  {% if messages %}
 		  	{% for category, message in messages %}
