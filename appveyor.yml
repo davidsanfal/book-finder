@@ -1,0 +1,15 @@
+build: false
+
+environment:
+  - PYTHON: "C:\\Python27"
+
+init:
+  - "ECHO %PYTHON%"
+
+install:
+  - "set PYTHONPATH=%PYTHONPATH%;%CD%"
+  - "%PYTHON%/Scripts/pip.exe install -r conans/requirements.txt"
+  - "%PYTHON%/Scripts/pip.exe install -r conans/requirement_test.txt"
+
+test_script:
+  - "%PYTHON%/Scripts/nosetests"
