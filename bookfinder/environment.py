@@ -10,3 +10,4 @@ def get_environment_variable(name, default=None):
 
 ISBNDB_API_KEY = get_environment_variable('ISBNDB_API_KEY')
 LIBRARYTHING_API_KEY = get_environment_variable('LIBRARYTHING_API_KEY')
+SECRET_APP_KEY = get_environment_variable('SECRET_APP_KEY')

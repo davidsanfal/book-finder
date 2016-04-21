@@ -10,6 +10,13 @@ class BookSearcherException(Exception):
     pass
 
 
+class BookSearcherMaxPageException(BookSearcherException):
+    """
+         MaxPage BookSearcher exception
+    """
+    pass
+
+
 class EnvironmentException(Exception):
     """
          Environment exception

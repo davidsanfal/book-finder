@@ -30,3 +30,6 @@ class LibraryThingClientTest(unittest.TestCase):
         else:
             url = client.get_cover_url(isbn)
             self.assertEqual(url, result)
+
+if __name__ == '__main__':
+    unittest.main()

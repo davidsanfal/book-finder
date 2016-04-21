@@ -18,10 +18,9 @@ def finder():
             books_info, pages = book_searcher.serch(form.query.data,
                                                     form.query_type.data)
             if pages:
-                books_info = book_info_to_json(books_info)
+                books_info = book_info_to_json(books_info, pages)
                 query = json.dumps({'data': form.query.data,
-                                    'type': form.query_type.data,
-                                    'pages': pages})
+                                    'type': form.query_type.data})
                 return redirect(url_for('book_list',
                                         page=1,
                                         books_info=books_info,

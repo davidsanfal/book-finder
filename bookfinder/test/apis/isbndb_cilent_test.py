@@ -3,7 +3,7 @@ from bookfinder.apis.isbndb_client import ISBNdbClient
 from mock.mock import MagicMock
 from nose_parameterized.parameterized import parameterized
 from bookfinder.errors import ISBNdbException
-from bookfinder.test.apis.output_utils import jhon_queary_1, \
+from bookfinder.test.utils.output_utils import jhon_queary_1, \
                                               clean_code_quert_01
 
 
@@ -75,3 +75,6 @@ class ISBNdbClientTest(unittest.TestCase):
         else:
             request_value = client.search(query, index, page)
             self.assertEqual(request_value, result)
+
+if __name__ == '__main__':
+    unittest.main()
