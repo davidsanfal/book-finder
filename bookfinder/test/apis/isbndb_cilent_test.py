@@ -3,7 +3,8 @@ from bookfinder.apis.isbndb_client import ISBNdbClient
 from mock.mock import MagicMock
 from nose_parameterized.parameterized import parameterized
 from bookfinder.errors import ISBNdbException
-from bookfinder.apis.test.output_utils import jhon_queary_1, clean_code_quert_01
+from bookfinder.test.apis.output_utils import jhon_queary_1, \
+                                              clean_code_quert_01
 
 
 def side_effect(request_info):

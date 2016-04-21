@@ -2,8 +2,8 @@ import os
 from bookfinder.errors import EnvironmentException
 
 
-def get_environment_variable(name):
-    var = os.environ.get(name)
+def get_environment_variable(name, default=None):
+    var = os.environ.get(name, default)
     if var is None:
         raise EnvironmentException('Define the API Key: %s' % name)
     return var
