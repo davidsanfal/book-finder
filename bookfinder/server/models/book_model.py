@@ -3,7 +3,8 @@ import json
 
 
 class BookInfo(object):
-
+    '''Book info container, this class receives a dict with all the book info and
+       extracts the important information to render in the book profile'''
     def __init__(self, data):
         library_things_client = LibraryThingClient()
         title = data.get('title_long')
@@ -33,6 +34,7 @@ class BookInfo(object):
 
 
 def book_info_to_json(books_info, pages):
+    '''Utility function, recives a list of books and generates a json dict'''
     bi = []
     for book in books_info:
         bi.append(book.to_dict)

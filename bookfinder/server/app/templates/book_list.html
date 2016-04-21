@@ -41,7 +41,7 @@
 		<ul class = " pagination">
 			<li><a href = "{{ url_for('book_list', page=1, query=query) }}">First</a></li>
 			{% if current_page > 1 %}
-		   		<li><a href = "current_page-1">&laquo;</a></li>
+		   		<li><a href = "{{ url_for('book_list', page=current_page-1, query=query) }}">&laquo;</a></li>
 		   	{% endif %}
 		   	{% for num_page in pages %}
 		   		<li><a href = "{{ url_for('book_list', page=num_page, query=query) }}">{{ num_page }}</a></li>

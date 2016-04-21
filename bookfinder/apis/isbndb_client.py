@@ -26,10 +26,11 @@ INDEX_PARAMETERS = ['author_id',  # (ISBNdb's internal author_id)
                     'full',  # (searches across all indexes)
                     ]
 
-INDEX_SIMPLE_SEARCH = ['title',
-                       'isbn']
+INDEX_SIMPLE_SEARCH = ['title',  # (searches a specific title book)
+                       'isbn',  # (searches a specific isbn book)
+                       ]
 
-INDEX_ALL_BOOKS = 'all'
+INDEX_ALL_BOOKS = 'all'  # (searches across all books)
 
 
 class ISBNdbClient(object):

@@ -11,6 +11,7 @@ from bookfinder.server.app.finder_app import app
 
 @app.route('/', methods=['POST', 'GET'])
 def finder():
+    '''Home and finder, decides if show a single book or a list of them'''
     form = FinderForm(request.form)
     if request.method == 'POST' and form.validate():
         book_searcher = BookService()
