@@ -1,6 +1,6 @@
 <h1 align="center">Book Finder</h1>
 
-[![Python 2](https://img.shields.io/badge/python-2.x-brightgreen.svg)](https://www.python.org/downloads/)
+[![Build Status](https://travis-ci.org/davidsanfal/taric-book-finder.svg?branch=develop)](https://travis-ci.org/davidsanfal/taric-book-finder) [![Python 2](https://img.shields.io/badge/python-2.x-brightgreen.svg)](https://www.python.org/downloads/)
 
 Book Finder is a webapp wich use the [ISBNdb](http://isbndb.com/) and [LibraryThing](http://www.librarything.com) APIs to get books information.
 
