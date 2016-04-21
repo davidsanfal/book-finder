@@ -34,12 +34,14 @@ INDEX_ALL_BOOKS = 'all'  # (searches across all books)
 
 
 class ISBNdbClient(object):
+    '''Minimal client to retrive the information of books using the ISBNdb API v2'''
 
     def __init__(self):
         self.api_key = ISBNDB_API_KEY
         self.base_url = 'http://isbndb.com/api/v2/json/%s' % self.api_key
 
     def request(self, request_info):
+        '''Retrive the Json information from ISBNdb API v2'''
         url = self.base_url + request_info  # '/book/084930315X'
         try:
             response = requests.get(url=url)
@@ -58,10 +60,14 @@ class ISBNdbClient(object):
         return data
 
     def get_book(self, info):
+        '''Search a single book'''
         info = urlify(info)
         return self.request('/book/%s' % info)
 
     def get_books(self, info, index=None, page=1):
+        '''Search all books with the info pattern.
+        Return a specific page if this info has more than one page
+        index parameter must be one of INDEX_PARAMETERS'''
         info = urlify(info)
         request_url = '/books?q=%s' % info
         if index:
@@ -73,6 +79,8 @@ class ISBNdbClient(object):
         return self.request(request_url)
 
     def search(self, info, query_type, page):
+        '''Client entry point
+        Decides if search a single book or a book list'''
         if query_type in INDEX_SIMPLE_SEARCH:
             return self.get_book(info)
         query_type = None if query_type == INDEX_ALL_BOOKS else query_type
