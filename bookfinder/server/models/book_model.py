@@ -32,8 +32,9 @@ class BookInfo(object):
         return json.dumps(self.to_dict)
 
 
-def book_info_to_json(books_info):
+def book_info_to_json(books_info, pages):
     bi = []
     for book in books_info:
         bi.append(book.to_dict)
-    return json.dumps(bi)
+    return json.dumps({'books': bi,
+                       'pages': pages})

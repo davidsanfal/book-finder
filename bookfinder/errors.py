@@ -10,6 +10,13 @@ class BookSearcherException(Exception):
     pass
 
 
+class BookSearcherMaxPageException(BookSearcherException):
+    """
+         MaxPage BookSearcher exception
+    """
+    pass
+
+
 class EnvironmentException(Exception):
     """
          Environment exception
@@ -19,7 +26,14 @@ class EnvironmentException(Exception):
 
 class ISBNdbException(BookSearcherException):
     """
-         ISBNdbException exception
+         ISBNdbClient exception
+    """
+    pass
+
+
+class LibraryThingException(BookSearcherException):
+    """
+         LibraryThingClient exception
     """
     pass
 

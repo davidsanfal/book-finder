@@ -1,8 +1,9 @@
-from flask import request, redirect, abort
+from flask import request, abort, redirect
 from flask.templating import render_template
 from flask.helpers import flash, url_for
 from bookfinder.server.services.book_service import BookService
-from bookfinder.errors import BookSearcherException
+from bookfinder.errors import BookSearcherException,\
+    BookSearcherMaxPageException
 import json
 from bookfinder.server.app.finder_app import app
 
@@ -17,21 +18,30 @@ def page_counter(current_page, max_page):
     return range(1, 4)
 
 
-@app.route('/books/<page>')
+@app.route('/books/<int:page>')
 def book_list(page):
     query_json = request.args.get('query')
     if not query_json:
         abort(404)
     query = json.loads(query_json)
-    max_page = query['pages']
     books_info = request.args.get('books_info')
     if not books_info:
         book_searcher = BookService()
-        books, _ = book_searcher.serch(query['data'],
-                                       query['type'],
-                                       page)
+        try:
+            books, max_page = book_searcher.serch(query['data'],
+                                                  query['type'],
+                                                  page)
+        except BookSearcherMaxPageException:
+            return abort(404)
+        except BookSearcherException as e:
+            flash(e.message, 'danger')
+            return redirect(url_for('finder'))
     else:
-        books = json.loads(books_info)
+        books_info = json.loads(books_info)
+        books = books_info['books']
+        max_page = books_info['pages']
+    if max_page < page:
+        abort(404)
     return render_template('book_list.html',
                            books=books,
                            query=query_json,
