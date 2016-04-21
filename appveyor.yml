@@ -9,8 +9,8 @@ init:
 
 install:
   - "set PYTHONPATH=%PYTHONPATH%;%CD%"
-  - "%PYTHON%/Scripts/pip.exe install -r conans/requirements.txt"
-  - "%PYTHON%/Scripts/pip.exe install -r conans/requirement_test.txt"
+  - "%PYTHON%/Scripts/pip.exe install -r requirements.txt"
+  - "%PYTHON%/Scripts/pip.exe install -r requirement_test.txt"
 
 test_script:
   - "%PYTHON%/Scripts/nosetests"
