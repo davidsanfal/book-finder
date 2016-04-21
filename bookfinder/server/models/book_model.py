@@ -1,5 +1,3 @@
-from bookfinder.apis.isbndb_client import ISBNdbClient
-from bookfinder.errors import ISBNdbException, BookSearcherException
 from bookfinder.apis.lirarything_client import LibraryThingClient
 import json
 
@@ -39,24 +37,3 @@ def book_info_to_json(books_info):
     for book in books_info:
         bi.append(book.to_dict)
     return json.dumps(bi)
-
-
-class BookService(object):
-
-    def __init__(self):
-        self.isbndb_client = ISBNdbClient()
-
-    def serch(self, query, query_type, page=1):
-        books_info = []
-        try:
-            json_info = self.isbndb_client.search(query,
-                                                  query_type,
-                                                  page)
-        except ISBNdbException as e:
-            raise BookSearcherException(e.message)
-        if not json_info['data']:
-            error_message = 'Unable to locate any book with "%s"' % query
-            raise BookSearcherException(error_message)
-        for data in json_info['data']:
-            books_info.append(BookInfo(data))
-        return books_info, json_info.get('page_count')
