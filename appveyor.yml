@@ -3,6 +3,12 @@ build: false
 environment:
   matrix:
     - PYTHON: "C:\\Python27"
+  LIBRARYTHING_API_KEY:
+    secure: U4D8cG2Vve9jsVFlp61hSdhEUrL72STMGGQP0XLrHw3nzJLAf6NjaXT3VqIxSjZ2
+  ISBNDB_API_KEY:
+    secure: HeMsr/NAL0n2C7NxHD09WQ==
+  SECRET_APP_KEY:
+    secure: 8Kk7wdaqkUjZxuiSQotzjpQvgKgSyrkO+Fiw90+osDw=
 
 init:
   - "ECHO %PYTHON%"
