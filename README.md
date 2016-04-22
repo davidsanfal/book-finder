@@ -29,7 +29,7 @@ sudo -H pip install -r requirements.txt
 
 ## Execute
 
-Define the environment variables
+### Define the environment variables
 
 #### Windows
 
@@ -47,7 +47,7 @@ export LIBRARYTHING_API_KEY=your_librarything_api_key
 export SECRET_APP_KEY=your_webapp_key # you can use what you want
 ```
 
-Launch the webapp.
+### Launch the webapp
 
 ```bash
 cd taric-book-finder
@@ -58,7 +58,7 @@ python launcher.py
 
 You need to use `nosetests` to run the tests.
 
-you need to install the test requirements.
+### Install the test requirements
 
 #### Windows
 
@@ -74,7 +74,7 @@ cd taric-book-finder
 sudo -H pip install -r requirements_test.txt
 ```
 
-Now, you can run the tests.
+### run the tests.
 
 ```bash
 cd taric-book-finder
