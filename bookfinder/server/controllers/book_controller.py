@@ -9,7 +9,7 @@ from bookfinder.server.app.finder_app import app
 
 
 def page_counter(current_page, max_page):
-    '''Utility function to create the book list pagination componet'''
+    '''Utility function to create the book list pagination component'''
     if max_page < 4:
         return range(1, max_page+1)
     if current_page > 2:
@@ -55,7 +55,6 @@ def book_list(page):
 @app.route('/book/<isbn>')
 def book(isbn):
     '''Book profile, show all the information of the book with the input ISBN'''
-    book = None
     book_info = request.args.get('book_info')
     if not book_info:
         book_searcher = BookService()

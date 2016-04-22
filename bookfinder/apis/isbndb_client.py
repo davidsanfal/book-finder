@@ -60,12 +60,12 @@ class ISBNdbClient(object):
         return data
 
     def get_book(self, info):
-        '''Search a single book'''
+        '''Create the URL to search a single book'''
         info = urlify(info)
         return self.request('/book/%s' % info)
 
     def get_books(self, info, index=None, page=1):
-        '''Search all books with the info pattern.
+        '''Create the URL to search all books with the info pattern.
         Return a specific page if this info has more than one page
         index parameter must be one of INDEX_PARAMETERS'''
         info = urlify(info)
