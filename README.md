@@ -78,13 +78,35 @@ sudo -H pip install -r requirements_test.txt
 
 ```bash
 cd taric-book-finder
-nosetests
+nosetests --nocapture
 
 ...
 
 Ran 33 tests in 6.333s
 
 OK
+```
+
+### run the tests with coverage.
+
+```bash
+cd taric-book-finder
+nosetests --nocapture --with-coverage --cover-package=bookfinder
+
+Name                                                 Stmts   Miss  Cover   Missing
+----------------------------------------------------------------------------------
+bookfinder.py                                            0      0   100%   
+bookfinder\apis.py                                       0      0   100%   
+
+...
+
+----------------------------------------------------------------------------------
+TOTAL                                                  227     37    84%   
+----------------------------------------------------------------------
+Ran 33 tests in 5.805s
+
+OK
+
 ```
 
 # How to use Book Finder

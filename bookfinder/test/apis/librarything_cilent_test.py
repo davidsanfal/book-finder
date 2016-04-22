@@ -1,6 +1,6 @@
 import unittest
 from nose_parameterized.parameterized import parameterized
-from bookfinder.apis.lirarything_client import LibraryThingClient
+from bookfinder.apis.librarything_client import LibraryThingClient
 from bookfinder.errors import LibraryThingException
 
 

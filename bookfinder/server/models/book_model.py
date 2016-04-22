@@ -1,4 +1,4 @@
-from bookfinder.apis.lirarything_client import LibraryThingClient
+from bookfinder.apis.librarything_client import LibraryThingClient
 import json
 
 
