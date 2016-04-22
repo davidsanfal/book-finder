@@ -10,7 +10,7 @@ class LibraryThingClient(object):
         self.base_url = 'http://covers.librarything.com/devkey/{}/{}/isbn/{}'
 
     def get_cover_url(self, isbn, size='medium'):
-        '''Returns the cover with the ISBN specified'''
+        '''Create and returns the cover URL with the ISBN specified'''
         if isbn and self.correct_isbn(isbn):
             return self.base_url.format(self.api_key,
                                         size,

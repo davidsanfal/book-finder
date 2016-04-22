@@ -8,19 +8,28 @@ class BookInfo(object):
 
     def __init__(self, data):
         library_things_client = LibraryThingClient()
+
+        #  Book title, retrieve the long title if it is possible
         self.title = self.retrieve(data, 'title_long', data.get('title'))
+
+        #  Book ISBNs
         self.isbn13 = data.get('isbn13')
         self.isbn10 = data.get('isbn10')
+
+        #  Book publisher, retrieve all the publisher info if it is possible
         _publisher = data.get('publisher_text')
-        self.retrieve(data, 'publisher_text', data.get('publisher_name'))
         _publisher = self.retrieve(data, 'publisher_text', data.get('publisher_name'))
         self.publisher = 'unknown' if _publisher == '' else _publisher
+
+        #  Book author
         _author_data = data.get('author_data')
         self.author = _author_data[0].get('name') if _author_data else 'unknown'
-        _isbn = self.isbn10 or self.isbn13
-        self.cover_url = library_things_client.get_cover_url(_isbn)
-        self.cover_large_url = library_things_client.get_cover_url(_isbn, 'large')
-        #  Detail Info
+
+        #  Book cover URLs
+        self.cover_url = library_things_client.get_cover_url(self.isbn10 or self.isbn13)
+        self.cover_large_url = library_things_client.get_cover_url(self.isbn10 or self.isbn13,
+                                                                   'large')
+        #  Book detail Info to create the profile info
         self.retrieve(data, 'summary', 'Book without summary')
         self.summary = self.retrieve(data, 'summary', 'Book without summary')
         self.language = self.retrieve(data, 'language', 'unknown')
