@@ -15,8 +15,9 @@ init:
 
 install:
   - "set PYTHONPATH=%PYTHONPATH%;%CD%"
-  - "%PYTHON%/Scripts/pip.exe install -r requirements.txt"
-  - "%PYTHON%/Scripts/pip.exe install -r requirements_test.txt"
+  - "%PYTHON%/Scripts/pip.exe install -r python/requirements.txt"
+  - "%PYTHON%/Scripts/pip.exe install -r python/requirements_test.txt"
 
 test_script:
+  - cd python
   - "%PYTHON%/Scripts/nosetests"

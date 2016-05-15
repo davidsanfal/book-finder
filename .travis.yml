@@ -2,9 +2,11 @@ language: python
 python:
 - '2.7'
 install: 
-  - pip install -r requirements.txt
-  - pip install -r requirements_test.txt
-script: nosetests
+  - pip install -r python/requirements.txt
+  - pip install -r python/requirements_test.txt
+script:
+  - cd python
+  - nosetests
 env:
   global:
   - secure: iw4eLmaLM+2F6aGwd1TyPCR7K0E1J+2AYvYvW46iIklZIu5WP3R1IbLa8JdYPbDL0cYqE48ZOpZB0T4l7Y3Qw+BSVMAI9qmTKtJTusa2OADdbe3CQ5klTR9+6HvQCCzg6VoAFfA9mD1xfpuD9l0xuk8hrguoUlvk7OOBduu1FE5BWsJsglcjfgbXo14gdhYIyhZa1Cv421mqduEQeUCT+1FteTpY43UGA28x8BBkoY4H32otT4XSWeqG8M6z+WxsVKaqMiK1bY3SE0FuYcIhbLhd+FRmiA4ZGAnkOvpYUGZA5sd5BREUBo1587OCtXcOGHm5WDcL0A4QMYottXQD2mfHPk/zN7AQvRkVIWpvA+X/N6mbV+sb4BhAq7pn7CPr8aeUgcfU4SiqPjwN4/CW2ALNBYhldsuYeWm615PYQlyFiGH8gqUTYJTmfKZbzhxKeRcpurRkhG+IXB6hxle9i/Cn4bsFjK+/DvKSQO94vwp+Z9wgBSfg1zNIY1LF2pGNvpdhWHo0jW3A4DFPmy5pJMPF2LfTPEBZDcL8QYiM9V2doSrNYyQXpM+0lpf+YjynyZJRTPxXq/p2DrkM30DtS0cCesEGnHacDcbO4yILM99l26PfPQKYHooXWwd78vwNPFiYvmh516/VpmBiDdMsFkZ3qVQ6q44YZj/79ndJxN4=
